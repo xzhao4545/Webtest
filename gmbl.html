@@ -1,0 +1,173 @@
+<html>
+    <head>
+        <title>别踩白块</title>
+        <style>
+            *{
+                margin: 0;
+            }
+            body{
+                overflow: hidden;
+            }
+            table{
+                border-collapse:collapse;
+                
+            }
+            tr{
+                display: block;
+                height:15vh;
+                width:100%;
+            }
+            tr td{
+                height:15vh;
+                width:30vw;
+                border:1px solid black;
+            }
+            .black{
+                background-color: black;
+            }
+
+            .box{
+              position: absolute;
+              top:7vh;
+                width:100%;
+                height: 100%;
+            }
+            .sbox{
+                font-size: 4vh;
+            }
+            .score{
+                float:left;
+                margin:1vh 1vw;
+            }
+            .time{
+                float: right;
+                margin: 1vh 1vw;
+            }
+            .mask{
+                position:absolute;
+                height: 100%;
+                width: 100%;
+                z-index:100;
+                display:none;
+            }
+            .poptag{
+                position:absolute;
+                top:50%;
+                left:50%;
+                background-color: white;
+                margin-top:-15vh;
+                margin-left:-35vw;
+                height:30vh;
+                width: 70vw;
+                box-shadow:0 0 10px 3px rgba(0, 0, 0, 0.388);
+                z-index: 101;
+            }
+            .poptag::after{
+                position: absolute;
+                left:13vw;
+                top:1vh;
+                font-size: 5vh;
+                content:"游戏结束";
+            }
+            .poptag p{
+                position: absolute;
+                top:12vh;
+                left:8vw;
+                font-size: 4vh;
+            }
+            .poptag button{
+                position:absolute;
+                top:22vh;
+                left:20vw;
+                border-radius:2vw;
+                font-size: 3vh;
+                background-color: rgb(120, 175, 241);
+                color:white;
+                box-shadow: 0 0 10px 2px rgba(5, 110, 238, 0.553);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mask">
+            <span class="poptag">
+                <p>得分为:1020</p>
+                <button>重新开始</button>
+            </span>
+        </div>
+        <div class="sbox">
+            <span class="score">得分:0</span>
+            <span class="time">0.0s</span>
+        </div>
+        <div class="box">
+            <table cellspacing="0" cellpadding="0">
+                
+            </table>
+        </div>
+    </body>
+    <script>
+        const tb=document.getElementsByTagName("table")[0];
+        let gtr=document.getElementsByTagName("tr");
+        const scbox=document.querySelector(".score");
+        const timeb=document.querySelector(".time");
+        const mask=document.querySelector(".mask");
+        const endsc=document.querySelector(".poptag p");
+        const rebg=document.querySelector(".poptag button");
+        let score=0,ts=0,flag=false;
+        let gotime;
+        //绘制地图
+        function drawMap(){
+        for(var i=0;i<6;i++){
+            let tr=document.createElement("tr");
+            tb.appendChild(tr);
+            for(var j=0;j<5;j++){
+                let td=document.createElement("td");
+                tr.appendChild(td);
+            }
+            const nb=Math.floor(Math.random()*5);
+            tr.children[nb].classList.add("black");
+            if(i==5)tr.children[nb].classList.add("beclick");
+        }
+        }
+        drawMap();
+        let buton=document.getElementsByClassName("beclick")[0];
+        tb.addEventListener("click",function(e){
+        //判断是否点击到黑块
+            if(e.target.className=="black beclick"){                
+                gtr[4].getElementsByClassName("black")[0].classList.add("beclick");
+               scbox.innerText="得分:"+ ++score;
+                e.target.parentNode.remove();
+                //开始计时
+                if(flag==false){
+                    flag=true;
+                    gotime=setInterval(function(){
+                        ts++;
+                        timeb.innerText=ts/10+"s";
+                    },100)
+                }
+                //添加新的一行
+                let tr=document.createElement("tr");
+                tb.insertBefore(tr,tb.children[0]);
+            for(var j=0;j<5;j++){
+                let td=document.createElement("td");
+                tr.appendChild(td);
+            }
+            const nb=Math.floor(Math.random()*5);
+            tr.children[nb].classList.add("black");
+            }
+            //判断是否踩到白块
+            if(flag==true&&e.target.className==""){
+                clearInterval(gotime);
+                endsc.innerText="分数:"+Math.ceil(score*score/(ts/10));
+                mask.style.display="block";
+            }
+        })
+        rebg.onclick=function(){
+            mask.style.display="none";
+            score=0;
+            ts=0;
+            flag=false;
+            timeb.innerText="0.0s";
+            scbox.innerText="得分:0";
+        }
+    </script>
+</html>
