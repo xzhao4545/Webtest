@@ -1,0 +1,205 @@
+<html>
+    <head>
+        <meta name="viewport" content="user-scalable=no">
+        <title>别踩白块</title>
+        <style>
+        *{
+        	margin:0;
+        	padding:0;
+        }
+        body{
+            overflow: hidden;
+        }
+            .gamesc table{
+                position:absolute;
+                height:100%;
+                width:110%;
+                border-collapse:collapse;
+                
+            }
+            .gamesc tr{
+                display: block;
+                height:20%;
+                width:100%;
+            }
+            .gamesc tr td{
+            	display:inline-block;
+                height:100%;
+                width:calc(23% - 2px);
+                border:1px solid black;
+            }
+            .gamesc .black{
+                background:url(img/meme.png) no-repeat;
+                background-size:100% 100%;
+            }
+
+            .gamesc .box{
+              position: absolute;
+              top:10%;
+                width:100%;
+                height: 90%;
+                overflow: hidden;
+            }
+            .gamesc .sbox{
+                font-size: 40px;
+                height:10%;
+            }
+            .gamesc .score{
+                float:left;
+                margin:1% 1%;
+            }
+            .gamesc .time{
+                float: right;
+                margin: 1% 1%;
+            }
+            .gamesc .mask{
+                position:absolute;
+                height: 100%;
+                width: 100%;
+                z-index:100;
+                display:none;
+            }
+            .gamesc .poptag{
+                position:absolute;
+                top:50%;
+                left:50%;
+                background-color: white;
+                border-radius:20px;
+                margin-top:-15%;
+                margin-left:-35%;
+                height:30%;
+                width: 70%;
+                box-shadow:0 0 10px 3px rgba(0, 0, 0, 0.388);
+                z-index: 101;
+            }
+            .gamesc .poptag::after{
+                position: absolute;
+                left:25%;
+                top:1%;
+                font-size: 30px;
+                content:"Game Over";
+            }
+            .gamesc .poptag p{
+                position: absolute;
+                top:20%;
+                left:8%;
+                font-size: 25px;
+            }
+            .gamesc .poptag button{
+                position:absolute;
+                bottom:10%;
+                left:35%;
+                font-size: 30px;
+                background-color: rgb(120, 175, 241);
+                border-radius:10px;
+                padding:5px;
+                color:white;
+                border:0;
+                cursor:pointer;
+                box-shadow: 0 0 5px 2px rgba(5, 110, 238, 0.553);
+            }
+            .gamesc .poptag button:hover{
+            	background-color:rgb(150, 190, 241);
+            }
+            .gamesc .poptag button:active{
+                background-color:rgb(115, 171, 243);
+            }
+            .gamesc{
+            	position:absolute;
+            	width:100%;
+            	height:100%;
+            	border:1px solid black;
+            	background-color: white;
+            	margin:0;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div class="gamesc">
+        	<div class="mask">
+            <span class="poptag">
+                <p>Your score:</p>
+                <button>restart</button>
+            </span>
+        </div>
+        <div class="sbox">
+            <span class="score">score:0</span>
+            <span class="time">0.0s</span>
+        </div>
+        <div class="box">
+            <table cellspacing="0" cellpadding="0">
+                
+            </table>
+        </div>
+        </div>
+    </body>
+    <script>
+        const tb=document.getElementsByTagName("table")[0];
+        var gtr=document.getElementsByTagName("tr");
+        const scbox=document.querySelector(".score");
+        const timeb=document.querySelector(".time");
+        const mask=document.querySelector(".mask");
+        const endsc=document.querySelector(".poptag p");
+        const rebg=document.querySelector(".poptag button");
+        var score=0,ts=0,flag=false;
+        var gotime;
+        var r=5,l=4;
+        //绘制地图
+        function drawMap(){
+        for(var i=0;i<r;i++){
+            var tr=document.createElement("tr");
+            tb.appendChild(tr);
+            for(var j=0;j<l;j++){
+                var td=document.createElement("td");
+                tr.appendChild(td);
+            }
+            const nb=Math.floor(Math.random()*(l-1));
+            tr.children[nb].classList.add("black");
+            if(i==r-1)tr.children[nb].classList.add("beclick");
+        }
+        }
+        drawMap();
+        var buton=document.getElementsByClassName("beclick")[0];
+        tb.addEventListener("click",function(e){
+        //判断是否点击到黑块
+            if(e.target.className=="black beclick"){                
+                gtr[r-2].getElementsByClassName("black")[0].classList.add("beclick");
+               scbox.innerText="score:"+ ++score;
+                e.target.parentNode.remove();
+                //开始计时
+                if(flag==false){
+                    flag=true;
+                    gotime=setInterval(function(){
+                        ts++;
+                        var tt=ts%10==0?ts/10+".0":ts/10;
+                        timeb.innerText=tt+"s";
+                    },100)
+                }
+                //添加新的一行
+                var tr=document.createElement("tr");
+                tb.insertBefore(tr,tb.children[0]);
+            for(var j=0;j<l;j++){
+                var td=document.createElement("td");
+                tr.appendChild(td);
+            }
+            const nb=Math.floor(Math.random()*(l-1));
+            tr.children[nb].classList.add("black");
+            }
+            //判断是否踩到白块
+            if(flag==true&&e.target.className==""){
+                clearInterval(gotime);
+                endsc.innerText="Your score:"+Math.ceil(score*score/(ts/10));
+                mask.style.display="block";
+            }
+        })
+        rebg.onclick=function(){
+            mask.style.display="none";
+            score=0;
+            ts=0;
+            flag=false;
+            timeb.innerText="0.0s";
+            scbox.innerText="score:0";
+        }
+    </script>
+</html>

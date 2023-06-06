@@ -1,0 +1,161 @@
+<html>
+    <head>
+        <meta name="viewport" content="user-scalable=no">
+        <title>贪吃蛇</title>
+        <style>
+            *{
+                margin: 0;
+                padding:0;
+            
+            }
+            body{
+                overflow:hidden;
+            }
+            #map{
+                height:100%;
+            }
+        </style>
+    </head>
+    <body>
+<div id="map">
+
+</div>
+
+
+    </body>
+    <script>
+
+//蛇身
+class snakeB{
+position={
+    position_x:0,
+    position_y:0
+}  
+velocity={
+    velocity_x:0,
+    velocity_y:0
+}
+size=30;
+color="green";
+box;
+index=400;
+}
+
+//蛇
+class snake{
+    sum=0;
+    head;
+    body=[];
+dist=5;
+    creat(size=30,position_x=0,position_y=0,velocity_x=0,velocity_y=0,color="green"){
+    this.head=new snakeB;
+    this.head.velocity.velocity_x=velocity_x;
+    this.head.velocity.velocity_y=velocity_y;
+    this.head.position.position_x=position_x;
+    this.head.position.position_y=position_y;
+    this.head.color=color;
+    this.head.box=document.createElement('snahead');
+    document.querySelector("#map").appendChild(this.head.box);
+    this.head.box.style="border-radius:50%;position:absolute;background-color:"+color+";top:"+position_y+"px;left:"+position_x+";width:"+
+    size+";height:"+size+"px;z-index:"+this.head.index+";";
+    this.body.push(this.head);
+}
+start(){
+    setInterval(() => {
+        for(let i=0;i<this.body.length;i++){
+        //属性刷新
+        this.body[i].position.position_x+=this.body[i].velocity.velocity_x;
+        this.body[i].position.position_y+=this.body[i].velocity.velocity_y;
+        this.body[i].box.style.top=this.body[i].position.position_y;
+        this.body[i].box.style.left=this.body[i].position.position_x;
+        this.body[i].box.style.width=this.body[i].size;
+        this.body[i].box.style.height=this.body[i].size;
+        this.body[i].box.style.backgroundColor=this.body[i].color;
+        //判断是否超出地图
+        if(this.body[i].position.position_x>window.innerWidth)this.body[i].position.position_x=-this.body[i].size;
+        else if(this.body[i].position.position_x<-this.body[i].size)this.body[i].position.position_x=window.innerWidth;
+        if(this.body[i].position.position_y>window.innerHeight)this.body[i].position.position_y=-this.body[i].size;
+        else if(this.body[i].position.position_y<-this.body[i].size)this.body[i].position.position_y=window.innerHeight;
+        }
+    },20) ;
+}
+grow(size=30,dist=this.dist,color="green"){
+    var npart=new snakeB,velocity=this.body[this.sum].velocity;
+    npart.size=size;
+    npart.position.position_x=this.body[this.sum].position.position_x;
+    npart.position.position_y=this.body[this.sum].position.position_y;
+    npart.box=document.createElement("snabody");
+    document.querySelector("#map").appendChild(npart.box);
+    npart.box.style="border-radius:50%;position:absolute;background-color:"+color+";top:"+npart.position.position_y+"px;left:"+npart.position.position_x+";width:"+
+    size+";height:"+size+"px;z-index:"+(this.body[this.sum].index-1)+";";
+    this.body.push(npart);
+    setTimeout(function(){
+    //npart.velocity=velocity;
+    this.sum++;},100)
+}
+}
+
+//行为
+var nx=new Array(200),ny=new Array(200);
+var snabox=new snake;
+snabox.creat(30,10,10,1,0,"blue");
+snabox.start();
+var kd=false,rot,vt=false;
+window.onkeydown=function(e){
+	if(!kd){
+		kd=true;
+    //旋转角度
+    var angle=0.1;
+     rot=setInterval(function(){
+        //←
+        if(e.keyCode==37){
+            sin=Math.sin(angle);
+            cos=Math.cos(angle);
+            for(var i=0;i<snabox.body.length;i++){
+                nx[i]=snabox.body[i].velocity.velocity_x*cos+snabox.body[i].velocity.velocity_y*sin;
+           ny[i]=snabox.body[i].velocity.velocity_y*cos-snabox.body[i].velocity.velocity_x*sin;
+                (function(t){
+                setTimeout(function(){
+                    console.log(t,nx[t])
+                    snabox.body[t].velocity.velocity_x=nx[t];
+                    snabox.body[t].velocity.velocity_x=ny[t];
+                },100*t);
+            })(i)
+    }
+        }
+        else if(e.keyCode==39){
+            var sin=Math.sin(-angle);
+            var cos=Math.cos(-angle);
+           nx=snabox.body[i].velocity.velocity_x*cos+snabox.body[i].velocity.velocity_y*sin;
+           ny=snabox.body[i].velocity.velocity_y*cos-snabox.body[i].velocity.velocity_x*sin;
+           snabox.body[i].velocity.velocity_x=nx;
+           snabox.body[i].velocity.velocity_y=ny;
+        }
+      },20);
+        if(e.keyCode==38&&!vt){
+        	vt=true;
+        	snabox.body[i].velocity.velocity_x*=1.5;
+        	snabox.body[i].velocity.velocity_y*=1.5;
+        }
+       }
+}
+window.onkeyup=function(){
+	kd=false;
+	clearInterval(rot);
+	if(vt){
+		snabox.this.body[i].velocity.velocity_x/=1.5;
+        	snabox.this.body[i].velocity.velocity_y/=1.5;
+        	vt=false;
+	}
+}
+ snabox.grow(30,0,0);
+
+ function reve(i){
+                    return function(){
+                        console.log(i);
+                        
+                        
+                    }
+                }
+ </script>
+</html>

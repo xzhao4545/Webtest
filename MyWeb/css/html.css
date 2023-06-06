@@ -1,0 +1,312 @@
+*{
+    margin:0;
+    padding:0;
+}
+#head_menu{
+    position:fixed;
+    top:0;
+    height:50px;
+    width:100%;
+    box-shadow:0 2px 5px rgba(13, 118, 238, 0.756);
+    background-color:#0d89d5;
+    line-height:50px;
+    font-size:30px;
+    color:white;
+    font-weight:bold;
+    padding-left:90px;
+    z-index:200;
+}
+#head_menu span{
+    position:absolute;
+    left:20px;
+    top:10px;
+    width:35px;
+    height:35px;
+    line-height:30px;
+    font-size:35px;
+    text-indent:3px;
+    border-radius:50%;
+    background-color:#51bbfe;
+    cursor:pointer;
+    transition:all 0.3s;
+    z-index:99;
+}
+#head_menu span:hover{
+    width:40px;
+    height:40px;
+    top:8px;
+    left:18px;
+}
+#head_menu img{
+    position:absolute;
+    right:180px;
+    top:8px;
+    width:40px;
+    border-radius:50%;
+}
+#head_menu p{
+    float:right;
+    margin-right:130px;
+    margin-top:15px;
+    line-height:25px;
+    font-size:20px;
+    border-bottom:1px solid white;
+    cursor:pointer;
+}
+#sidebar{
+	position:fixed;
+	top:0;
+    left:0;
+    background-image: linear-gradient(#4b63e0,#11679c,#07103a 95%);
+	width:160px;
+	height:100%;
+	margin-top:50px;
+    transition:all 0.5s;
+    z-index:102;
+    user-select:none;
+}
+#sidebar ul li{
+    float:top;
+    width:160px;
+    height:60px;
+    line-height:60px;
+    font-size:20px;
+    text-indent:30px;
+    list-style: none;
+    background-color:#378dd6;
+    border:1px solid #051876;
+    border-width:0 0 1px;
+    transition:all 0.3s;
+    cursor:pointer;
+}
+#sidebar ul li:hover{
+    background-color:#8ccff8;
+    width:170px;
+    text-indent:55px;
+    border-radius:0 5px 5px 0;
+    box-shadow:1px 1px 3px 1px rgb(162, 199, 237);
+}
+#sidebar ul li:active{
+    background-color:#a6d8fa;
+    width:173px;
+    height:62px;
+    margin-top:-2px;
+}
+#sidebar ul .checked{
+    background-color:#51bbfe;
+}
+.sideClose{
+    left:-160px !important;
+}
+.mbox{
+	height:100%;
+    background:url(../img/bg1.png);
+}
+.box{
+	position:relative;
+	margin-left:160px;
+	margin-top:50px;
+    transition:0.5s;
+    display:none;
+    height:100%;
+    z-index: 10;
+}
+.box::after{
+    content:"";
+    display:block;
+    clear:both;
+    height: 0;
+    visibility: hidden;
+}
+
+.box1{
+    display:block;
+}
+.box1 .left{
+    float:left;
+    width:800px;
+    height:850px;
+    background-color: rgb(228, 228, 228);
+}
+.box1 .left .imgWindow{
+    position: relative;
+    height:450px;
+    background:white url(../img/hui1.jpg) no-repeat 50px -60px;
+    background-size: 700px;
+}
+.box1 .left .imgWindow .but{
+    position: absolute;
+    width:100%;
+    top:50%;
+    margin-top: -35px;
+    height:70px;
+}
+.box1 .left .imgWindow .but span{
+    height:100%;
+    width: 50px;;
+    font-size:50px;
+    user-select: none;
+    color:rgba(0, 0, 0, 0.648);
+    box-shadow:0 0 5px 1px rgba(255, 255, 255, 0.536);
+    background-color: rgba(236, 236, 236, 0.562);
+    cursor:pointer;
+}
+.box1 .left .imgWindow>.but>.left{
+    border-radius:0 50% 50% 0;
+    float:left;
+}
+.box1 .left .imgWindow>.but>.right{
+    border-radius: 50% 0 0 50%;
+    text-align:right;
+    float:right;
+}
+.box1 .left .imgWindow .but span:hover{
+    background-color: rgba(222, 221, 221, 0.836);
+    color:black;
+}
+.box1 .left .imgWindow ul{
+    position:absolute;
+    bottom:10px;
+    left:45%;
+    list-style: none;
+}
+.box1 .left .imgWindow ul li{
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius:50%;
+    box-shadow:0 0 5px 1px rgba(184, 184, 184, 0.542);
+    margin:3px;
+    width: 10px;
+    height: 10px;
+    display:inline-block;
+}
+.box1 .left .imgWindow ul .checked{
+    background-color:white;
+    box-shadow:0 0 5px 1px white;
+}
+.box1>.right{
+    float:left;
+    background:white url(../img/hui5.png) no-repeat 0 -5px;
+    background-size:100%;
+    width:800px;
+    height:850px;
+    transition:all 0.5s;
+}
+  #profile {
+    font-family: Arial, sans-serif;
+    background-color: lightblue;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+
+  #profile h1 {
+    color: black;
+    text-align: center;
+  }
+  #profile h2{
+    font-weight: 400;
+}
+  #profile p {
+    color: black;
+    font-size: 18px;
+  }
+
+  #profile li {
+    color: black;
+    font-size: 16px;
+    margin: 5px;
+  }
+
+.box2{
+	height:770px;
+}
+.gmbox{
+	height:calc(100% - 770px);
+}
+.gmbl{
+	position:absolute;
+	left:200px;
+}
+.box2 iframe{
+    height:720px;
+}
+.gmmenu{
+	height:50px;
+	background-color:rgba(162, 230, 237,0.6);
+}
+.gmmenu span{
+	display:inline-block;
+	height:50px;
+	width:100px;
+	line-height:50px;
+	border-radius:5px;
+	text-indent:1em;
+	background-color:rgba(162, 240, 250,0.5);
+	cursor:pointer;
+}
+.gmmenu span:hover{
+	background-color:rgba(162, 240, 250,0.8);
+}
+
+.box3>.left{
+height:700px;
+margin-right:650px;
+background:black url(../img/bing1.jpg) -480px 100px;
+background-size:auto 100%;
+}
+.box3>.left>.imgbox{
+    height:300px;
+    background:white url(../img/jur.jpg) no-repeat -50px -80px;
+    background-size: 120%;
+}
+
+.box3 #profile{
+    background-color:rgba(173, 216, 230, 0.64);
+}
+.box3>.right{
+    height:700px;
+    width:650px;
+    float:right;
+    background:white url(../img/jur2.png) no-repeat -280px 0;
+    background-size:auto 100%;
+}
+
+.box4>.test{
+height:calc(100vh - 50px);
+overflow:hidden;
+}
+.box4>.console{
+    position:absolute;
+    top:500px;
+    left:20px;
+    border-radius:10px;
+    opacity:0.3;
+    background-color:rgba(255, 255, 255);
+    padding:10px;
+    font-size:15px;
+    width: 300px;
+    height:150px;
+}
+.box4>.console:focus{
+    background-color:rgba(255, 255, 255, 0.762);
+    opacity:1;
+    border:0;
+    padding:10px;
+}
+.box4>.ttag{
+    position: absolute;
+    top:400px;
+    height:70px;
+    width: 300px;
+    border-radius:0 10px 10px 0;
+    background-color: rgba(8, 134, 231, 0.71);
+    opacity:0.2;
+    cursor:pointer;
+}
+.box4>.ttag h1{
+    font-size:20px;
+    text-align:center;
+}
+.box4>.ttag:hover{
+    opacity:0.8;
+}
